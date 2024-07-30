@@ -9,6 +9,8 @@ branding:
 outputs:
   version:
     description: 'New version'
+  next_version:
+    description: 'Next version, only if get_next is provided'
 inputs:
   dry_run:
     description: 'Run without creating commit, output to stdout'
@@ -95,5 +97,9 @@ inputs:
     default: "false"
   debug:
     description: "If true, prints debug output to GitHub Actions stdout."
+    required: false
+    default: "false"
+  get_next:
+    description: "If true, writes the determined next version to the next_version output"
     required: false
     default: "false"

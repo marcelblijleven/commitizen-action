@@ -80,8 +80,20 @@ if [[ $INPUT_CHANGELOG_INCREMENT_FILENAME ]]; then
   echo "${CZ_CMD[@]}" ">$INPUT_CHANGELOG_INCREMENT_FILENAME"
   "${CZ_CMD[@]}" >"$INPUT_CHANGELOG_INCREMENT_FILENAME"
 else
-  echo "${CZ_CMD[@]}"
-  "${CZ_CMD[@]}"
+  if [[ $INPUT_GET_NEXT == 'true' ]]; then
+    CZ_CMD+=('--get-next')
+
+    echo "${CZ_CMD[@]}"
+    "${CZ_CMD[@]}" > NEXT
+
+    echo "NEXT_VERSION=${NEXT}" >> "$GITHUB_ENV"
+    echo "next_version=${NEXT}" >> "$GITHUB_OUTPUT"
+
+    INPUT_PUSH='false'
+  else
+    echo "${CZ_CMD[@]}"
+    "${CZ_CMD[@]}"
+  fi
 fi
 
 REV="$(cz version --project)"

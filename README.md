@@ -65,7 +65,7 @@ jobs:
 ## Variables
 
 | Name                           | Description                                                                                                                                                                                                                       | Default                                                         |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
 | `github_token`                 | Token for the repo. Can be passed in using `${{ secrets.GITHUB_TOKEN }}`. Required if `push: true`                                                                                                                                | -                                                               |
 | `dry_run`                      | Run without creating commit, output to stdout                                                                                                                                                                                     | false                                                           |
 | `repository`                   | Repository name to push. Default or empty value represents current github repository                                                                                                                                              | current one                                                     |
@@ -86,12 +86,14 @@ jobs:
 | `check_consistency`            | Check consistency among versions defined in commitizen configuration and version_files                                                                                                                                            | `false`                                                         |
 | `gpg_sign`                     | If true, use GPG to sign commits and tags (for git operations). Requires separate setup of GPG key and passphrase in GitHub Actions (e.g. with the action `crazy-max/ghaction-import-gpg`)                                        | `false`                                                         |
 | `debug`                        | Prints debug output to GitHub Actions stdout                                                                                                                                                                                      | `false`                                                         |
+| `get_next`                     | Write the determined next version to the `next_version` output. Runs without commiting.                                                                                                                                           | `false`                                                         |
 
 ## Outputs
 
-| Name      | Description     |
-| --------- | --------------- |
-| `version` | The new version |
+| Name           | Description                            |
+|----------------|----------------------------------------|
+| `version`      | The new version                        |
+| `next_version` | Next version if `get_next` is provided |
 
 The new version is also available as an environment variable under `REVISION` or you can access using `${{ steps.cz.outputs.version }}`
 
